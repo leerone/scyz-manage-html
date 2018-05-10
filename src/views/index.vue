@@ -70,6 +70,7 @@
         },
         watch:{
             "testData":function (val) {
+                alert(val);
                 console.info(val);
             }
         },
