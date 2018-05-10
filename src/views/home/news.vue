@@ -5,30 +5,29 @@
        <Select v-model="type" size="large" style="width:100px" @on-select="typeSelect">
             <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
+        <button @click="getUEContent()">获取内容</button>
         <Input v-model="type" size="large" placeholder="标题"></Input>
         <!-- <Input v-model="type" type="textarea" placeholder="富文本"></Input> -->
-        <quill-editor v-model="infoForm.a_content"
-                        ref="myQuillEditor"
-                        class="editer"
-                        :options="editorOption" @ready="onEditorReady($event)">
-        </quill-editor>
+        <div class="editor-container">
+            <UE :id=curEditor :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+        </div>
     </div>
 </template>
 
 <script>
-    import { quillEditor } from 'vue-quill-editor' //调用编辑器
+    import UE from '../../components/ue/ue.vue'; //引入编辑器
     export default {
         components: {
-            "quill-editor": quillEditor
+            UE
         },
 
         data () {
             return {
-                infoForm: {
-                  a_title: '',
-                  a_source: '',
-                  a_content:'',
-                  editorOption: {}
+                curEditor: 'ue',
+                defaultMsg: '这里是UE测试',
+                config: {
+                  initialFrameWidth: null,
+                  initialFrameHeight: 350
                 },
                 list: [
                     {
@@ -53,9 +52,7 @@
         },
 
         computed: {
-          editor() {
-            return this.$refs.myQuillEditor.quill
-          }
+          
         },
 
         mounted(){
@@ -66,9 +63,11 @@
            typeSelect (type){
                 console.info(type);
            },
-           onEditorReady(editor) {
-
-           }
+           getUEContent() {
+                let content = this.$refs.ue.getUEContent();
+                alert(content);
+                console.log(content)
+          }
         },
 
         created() {
@@ -78,5 +77,7 @@
 </script>
 
 <style lang="less">
- 
+    .editor-container {
+        padding-top: 20px;
+    }
 </style>

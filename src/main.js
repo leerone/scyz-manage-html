@@ -4,6 +4,7 @@ import VueRouter from 'vue-router';
 import Routers from './router';
 import Util from './libs/util';
 import App from './app.vue';
+
 import 'iview/dist/styles/iview.css';
 /* 加载vue状态管理器 */
 import store from './vuex'
