@@ -3,11 +3,8 @@
     <div class="layout">
         <Layout>
             <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
-                <Menu active-name="about" theme="dark" width="auto"  @on-select="menuBtnClick"> 
-                    <MenuItem name="about">
-                        <Icon type="ios-navigate"></Icon>
-                        <span>关于我们</span>
-                    </MenuItem>
+                <Menu active-name="news" theme="dark" width="auto"  @on-select="menuBtnClick"> 
+                   
                     <MenuItem name="news">
                         <Icon type="search"></Icon>
                         <span>新闻动态</span>
@@ -19,6 +16,11 @@
                     <MenuItem name="hrs">
                         <Icon type="ios-navigate"></Icon>
                         <span>招聘信息</span>
+                    </MenuItem>
+
+                     <MenuItem name="file">
+                        <Icon type="ios-navigate"></Icon>
+                        <span>文档中心</span>
                     </MenuItem>
                 </Menu>
             </Sider>
@@ -37,10 +39,10 @@
 
 <script>
 
-    import news from "./home/news.vue";
-    import cases from "./home/cases.vue";
-    import about from "./home/about.vue";
-    import hrs from "./home/hrs.vue";
+    import news from "./home/news/news.vue";
+    import cases from "./home/case/case.vue";
+    import file from "./home/file/file.vue";
+    import hrs from "./home/hrs/hrs.vue";
     import { mapGetters } from 'vuex';
 
     export default {
@@ -54,13 +56,13 @@
         components: {
             'news': news,
             'cases': cases,
-            'about': about,
+            'file': file,
             'hrs': hrs,
         },
 
         data () {
             return {
-                nowComp: "about",
+                nowComp: "news",
                 time:'',
                 date:'',
                 isCollapsed: false
@@ -78,8 +80,8 @@
             menuBtnClick (type) {
                 let me = this;
                 switch (type) {
-                    case 'about':
-                        me.nowComp = 'about'
+                    case 'file':
+                        me.nowComp = 'file'
                         break;
                     case 'news':
                         me.nowComp = 'news'
@@ -106,7 +108,7 @@
         created() {
             let me = this;
             console.info(me.$store);
-            me.test();
+            // me.test();
         }
     }
 </script>
