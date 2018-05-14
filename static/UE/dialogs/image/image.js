@@ -16,6 +16,7 @@
         initTabs();
         initAlign();
         initButtons();
+        initFetchUrl();
     };
 
     /* 初始化tab标签 */
@@ -67,6 +68,24 @@
                 setAlign(editor.getOpt('imageManagerInsertAlign'));
                 searchImage = searchImage || new SearchImage();
                 break;
+        }
+    }
+
+    /* 绑定fetchUrl --by leerone */
+    function initFetchUrl() {
+        var eleFile = document.getElementById('fetchUrl');
+        eleFile.onchange = function(e) {
+            $.ajax({
+                url: 'http://47.106.177.128:16666/file/tempimage',
+                type: 'POST',
+                data: new FormData($('#fetchUrlForm')[0]),
+                cache: false,
+                processData: false,
+                contentType: false,
+                success: function(result) {
+                    debugger;
+                }
+            });
         }
     }
 
