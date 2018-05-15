@@ -33,7 +33,8 @@
         if (img && img.tagName && img.tagName.toLowerCase() == 'img') {
             setTabFocus('remote');
         } else {
-            setTabFocus('upload');
+            //setTabFocus('upload');
+            setTabFocus('remote');
         }
     }
 
@@ -78,12 +79,14 @@
             $.ajax({
                 url: 'http://47.106.177.128:16666/file/tempimage',
                 type: 'POST',
+                dataType: "text",
                 data: new FormData($('#fetchUrlForm')[0]),
                 cache: false,
                 processData: false,
                 contentType: false,
                 success: function(result) {
-                    debugger;
+                    if (!result) return;
+                    $("#url").val(result);
                 }
             });
         }

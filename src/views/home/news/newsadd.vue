@@ -15,7 +15,7 @@
         </Form>
         <!-- <Input v-model="type" type="textarea" placeholder="富文本"></Input> -->
         <div class="editor-container">
-            <UE :id=curEditor :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+            <UE :id=curEditor :defaultMsg=defaultMsg ref="ue"></UE>
         </div>
 
         <Button type="primary" @click="postNews('formValidate')">发布</Button>
@@ -35,10 +35,12 @@
             return {
                 curEditor: 'ue',
                 defaultMsg: '',
-                config: {
+                /*config: {
                   initialFrameWidth: null,
-                  initialFrameHeight: 350
-                },
+                  initialFrameHeight: 350,
+                  //若UE组件工具栏需要自定义，只需配置toolbars即可
+                  toolbars:[[]]
+                },*/
                 list: [
                     {
                         value: 'hangye',
