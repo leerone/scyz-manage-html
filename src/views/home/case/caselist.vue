@@ -10,6 +10,15 @@
                 <Page :total="pagecount" :current="1" @on-change="changePage"></Page>
             </div>
         </div>
+
+        <Modal
+            v-model="confirm"
+            title="提示"
+            @on-ok="ok"
+            @on-cancel="cancel">
+            <p>确认是否删除?</p>
+        </Modal>
+
     </div>
 </template>
 
@@ -123,7 +132,9 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.remove(params)
+                                            let me = this;
+                                            me.confirm = true;
+                                            me.delparams = params;
                                         }
                                     }
                                 }, '删除')
@@ -133,7 +144,9 @@
                 ],
                 data: [
                     
-                ]
+                ],
+                confirm: false,
+                delparams: ''
             }
         },
 
@@ -222,6 +235,15 @@
                 let me = this;
                 me.$store.dispatch('getCaseCount', {reqData: me.casetype});
                 me.$store.dispatch('getCaseList', {reqData: {'type': me.casetype, 'page': 1}});
+            },
+            ok () {
+                let me = this;
+                console.info(me.delparams);
+                me.remove(me.delparams);
+            },
+            cancel () {
+                let me = this;
+                me.$Message.info('取消');
             }
         },
 

@@ -44,8 +44,17 @@
             <FormItem label="项目名称" prop="name">
                 <Input v-model="formValidate.name" size="large" placeholder="项目名称"></Input>
             </FormItem>
+
+            <FormItem label="项目标题" prop="title">
+                <Input v-model="formValidate.title" size="large" placeholder="项目标题"></Input>
+            </FormItem>
+
+            <FormItem label="项目子标题" prop="subtitle">
+                <Input v-model="formValidate.subtitle" size="large" placeholder="项目子标题"></Input>
+            </FormItem>
+
             <FormItem label="项目简介" prop="content">
-                <Input v-model="formValidate.content" size="large" placeholder="项目简介"></Input>
+                <Input v-model="formValidate.content" type="textarea" :rows="4" placeholder="项目简介"></Input>
             </FormItem>
             <FormItem label="总建筑高度" prop="height">
                 <Input v-model="formValidate.height" size="large" placeholder="总建筑高度"></Input>
@@ -66,6 +75,10 @@
                 <Input v-model="formValidate.address" size="large" placeholder="地址"></Input>
             </FormItem>
 
+            <div class="editor-container">
+                <UE :id=curEditor :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+            </div>
+
         </Form>
         <Button type="primary" @click="postCase('formValidate')">提交</Button>
         <Button type="primary" @click="backTo()">返回</Button>
@@ -73,13 +86,21 @@
 </template>
 
 <script>
+    import UE from '../../../components/ue/ue.vue'; //引入编辑器
     import { mapGetters } from 'vuex';
     export default {
         components: {
+            UE
         },
 
         data () {
             return {
+                curEditor: 'ue',
+                defaultMsg: '',
+                config: {
+                  initialFrameWidth: null,
+                  initialFrameHeight: 350
+                },
                 list: [
                     {
                         value: 'ganzi',
@@ -97,6 +118,8 @@
                 formValidate: {
                     type: '',
                     name: '',
+                    title: '',
+                    subtitle: '',
                     content: '',
                     height: '',
                     finishtime: '',
@@ -137,6 +160,8 @@
                 case: {
                     type: '',
                     name: '',
+                    title: '',
+                    subtitle: '',
                     content: '',
                     height: '',
                     finishtime: '',
@@ -150,7 +175,8 @@
                 ],
                 imgName: '',
                 visible: false,
-                uploadList: []
+                uploadList: [],
+                content: ''
             }
         },
 
@@ -189,9 +215,14 @@
                 let urls = arr.join(',');
                 me.$refs[name].validate((valid) => {
                     if (valid) {
+
+                        me.getUEContent();
+
                         me.case = {
                             type: me.formValidate.type,
                             name: me.formValidate.name,
+                            title: me.formValidate.title,
+                            subtitle: me.formValidate.subtitle,
                             content: me.formValidate.content,
                             height: me.formValidate.height,
                             finishtime: me.formValidate.finishtime,
@@ -199,7 +230,8 @@
                             location: me.formValidate.location,
                             address: me.formValidate.address,
                             scale: me.formValidate.scale,
-                            url: urls
+                            url: urls,
+                            richtext: me.content
                         }
                         me.$store.dispatch('addCase', {reqData: me.case});
                     } else {
@@ -245,7 +277,11 @@
                     });
                 }
                 return check;
-            }
+            },
+            getUEContent() {
+                let me = this;
+                me.content = me.$refs.ue.getUEContent();
+            },
         },
 
         created() {

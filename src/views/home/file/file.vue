@@ -14,6 +14,15 @@
                 <Page :total="pagecount" :current="1" @on-change="changePage"></Page>
             </div>
         </div>
+
+        <Modal
+            v-model="confirm"
+            title="提示"
+            @on-ok="ok"
+            @on-cancel="cancel">
+            <p>确认是否删除?</p>
+        </Modal>
+
     </div>
 </template>
 
@@ -33,12 +42,16 @@
             return {
                 columns: [
                     {
-                        title: '标题',
+                        title: '文档名称',
                         key: 'name',
                     },
                     {
                         title: '路径',
                         key: 'url'
+                    },
+                    {
+                        title: '文档类型',
+                        key: 'type'
                     },
                     {
                         title: '操作',
@@ -68,7 +81,9 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.remove(params)
+                                            let me = this;
+                                            me.confirm = true;
+                                            me.delparams = params;
                                         }
                                     }
                                 }, '删除')
@@ -80,6 +95,8 @@
                     
                 ],
                 pagecount: 0,
+                confirm: false,
+                delparams: ''
             }
         },
         mounted(){
@@ -151,6 +168,15 @@
                 let me = this;
                 me.initTable ();
             },
+            ok () {
+                let me = this;
+                console.info(me.delparams);
+                me.remove(me.delparams);
+            },
+            cancel () {
+                let me = this;
+                me.$Message.info('取消');
+            }
         },
         created() {
             let me = this;

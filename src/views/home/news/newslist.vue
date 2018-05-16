@@ -10,6 +10,14 @@
             <Page :total="pagecount" :current="1" @on-change="changePage"></Page>
         </div>
 
+        <Modal
+            v-model="confirm"
+            title="提示"
+            @on-ok="ok"
+            @on-cancel="cancel">
+            <p>确认是否删除?</p>
+        </Modal>
+
     </div>
     </div>
 </template>
@@ -105,7 +113,9 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.remove(params)
+                                            let me = this;
+                                            me.confirm = true;
+                                            me.delparams = params;
                                         }
                                     }
                                 }, '删除')
@@ -115,7 +125,9 @@
                 ],
                 data: [
                     
-                ]
+                ],
+                confirm: false,
+                delparams: ''
             }
         },
 
@@ -191,6 +203,15 @@
                 let me = this;
                 me.$store.dispatch('getNewsCount', {reqData: me.newstype});
                 me.$store.dispatch('getNewsList', {reqData: {'type': me.newstype, 'page': 1}});
+            },
+            ok () {
+                let me = this;
+                console.info(me.delparams);
+                me.remove(me.delparams);
+            },
+            cancel () {
+                let me = this;
+                me.$Message.info('取消');
             }
         },
 
