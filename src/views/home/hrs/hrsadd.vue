@@ -13,10 +13,10 @@
                 <Input v-model="formValidate.description" size="large" placeholder="简介"></Input>
             </FormItem>
             <FormItem label="工作职责" prop="desc1">
-                <Input v-model="formValidate.desc1" size="large" placeholder="工作职责"></Input>
+                <Input v-model="formValidate.desc1" type="textarea" :rows="4" size="large" placeholder="工作职责"></Input>
             </FormItem>
             <FormItem label="职责要求" prop="desc2">
-                <Input v-model="formValidate.desc2" size="large" placeholder="职责要求"></Input>
+                <Input v-model="formValidate.desc2" type="textarea" :rows="4" size="large" placeholder="职责要求"></Input>
             </FormItem>
             <FormItem label="人数" prop="number">
                 <Input v-model="formValidate.number" size="large" placeholder="人数"></Input>

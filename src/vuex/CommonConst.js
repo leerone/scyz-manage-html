@@ -87,6 +87,13 @@ export const DEL_FILE_DATA_URL = URL + '/file/delFile';
 export const FILE_COUNT_DATA = "FILE_COUNT_DATA";
 export const FILE_COUNT_DATA_URL = URL + '/file/getFileCount';
 
+
+export const FILE_COMMENT_LIST = "FILE_COMMENT_LIST";
+export const FILE_COMMENT_LIST_URL = URL + '/file/getCommentList';
+
+export const DEL_COMMENT_DATA = "DEL_COMMENT_DATA";
+export const DEL_COMMENT_URL = URL + '/file/delComment';
+
 export const LOGIN_DATA = "LOGIN_DATA";
 export const LOGIN_URL = URL + '/login';
 

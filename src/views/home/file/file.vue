@@ -23,6 +23,14 @@
             <p>确认是否删除?</p>
         </Modal>
 
+        <Modal
+            v-model="commentModal"
+            title="提示"
+            @on-ok="commentok"
+            >
+            <Table border :columns="commentcolumns" :data="commentdata"></Table>
+        </Modal>
+
     </div>
 </template>
 
@@ -36,6 +44,8 @@
             fileListData: 'fileListData',
             delFileData: 'delFileData',
             fileCountData: 'fileCountData',
+            fileCommentList: 'fileCommentList',
+            delCommentData: 'delCommentData'
         }),
 
         data () {
@@ -86,7 +96,52 @@
                                             me.delparams = params;
                                         }
                                     }
-                                }, '删除')
+                                }, '删除'),
+                                h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            let me = this;
+                                            me.showComment(params);
+                                        }
+                                    }
+                                }, '评论')
+                            ]);
+                        }
+                    }
+                ],
+                commentcolumns: [
+                    {
+                        title: '时间',
+                        key: 'time',
+                    },
+                    {
+                        title: '内容',
+                        key: 'content',
+                    },
+                    {
+                        title: '操作',
+                        key: 'action',
+                        width: 200,
+                        align: 'center',
+                        render: (h, params) => {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small'
+                                    },
+                                    on: {
+                                        click: () => {
+                                            let me = this;
+                                            // me.delcomment = params;
+                                            me.removeComment(params.row.id);
+                                        }
+                                    }
+                                }, '删除'),
                             ]);
                         }
                     }
@@ -94,9 +149,15 @@
                 data: [
                     
                 ],
+                commentdata: [
+
+                ],
                 pagecount: 0,
                 confirm: false,
-                delparams: ''
+                delparams: '',
+                commentModal: false,
+                delcomment:'',
+                currentFileId: ''
             }
         },
         mounted(){
@@ -136,7 +197,32 @@
                     });
                 }
             },
-
+            "fileCommentList": function(val) {
+                let me = this;
+                me.commentModal = true;
+                me.commentdata = [];
+                if(val && val.data){
+                    let list = val.data;
+                    list.map(it => {
+                        me.commentdata.push(it);
+                    });
+                }
+            },
+            "delCommentData": function (val) {
+                let me = this;
+                if(val.data == 1){
+                    me.$Notice.open({
+                        title: '提醒',
+                        desc: '删除成功 '
+                    });
+                    me.$store.dispatch('getFileCommentList', {reqData: me.currentFileId});
+                }else {
+                    me.$Notice.open({
+                        title: '提醒',
+                        desc: '删除失败 '
+                    });
+                }
+            },
         },
 
         methods: {
@@ -178,6 +264,20 @@
             cancel () {
                 let me = this;
                 me.$Message.info('取消');
+            },
+            showComment(params) {
+                let me = this;
+                let fileid = params.row.id;
+                me.currentFileId = fileid;
+                me.$store.dispatch('getFileCommentList', {reqData: fileid});
+            },
+            removeComment (param) {
+                let me = this;
+                me.$store.dispatch('delComment', {reqData: param});
+            },
+            commentok () {
+                let me = this;
+                me.commentModal = false;
             }
         },
         created() {
