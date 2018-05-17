@@ -87,4 +87,7 @@ export const DEL_FILE_DATA_URL = URL + '/file/delFile';
 export const FILE_COUNT_DATA = "FILE_COUNT_DATA";
 export const FILE_COUNT_DATA_URL = URL + '/file/getFileCount';
 
+export const LOGIN_DATA = "LOGIN_DATA";
+export const LOGIN_URL = URL + '/login';
+
 

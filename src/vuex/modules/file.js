@@ -9,6 +9,7 @@ const state = {
     fileListData: '',
     fileCountData: '',
     delFileData: '',
+    loginData: ''
 };
 
 const getters = {
@@ -17,6 +18,7 @@ const getters = {
     fileListData:state => state.fileListData,
     fileCountData:state => state.fileCountData,
     delFileData:state => state.delFileData,
+    loginData:state => state.loginData,
     // news end
 };
 
@@ -55,6 +57,17 @@ const actions = {
                 commit(CommonConst.DEL_FILE_DATA, {resData: []});
             });
     },
+    // 登陆
+    login({commit}, {reqData}){
+        axios.get(CommonConst.LOGIN_URL+'?username='+reqData.username+'&password='+reqData.password)
+            .then(resData => {
+                let commitData = resData;
+                commit(CommonConst.LOGIN_DATA, {resData: commitData});
+            })
+            .catch(e => {
+                commit(CommonConst.LOGIN_DATA, {resData: []});
+            });
+    },
 };
 
 const mutations = {
@@ -66,6 +79,9 @@ const mutations = {
     },
     [CommonConst.DEL_FILE_DATA](state, {resData}) {
         state.delFileData = resData;
+    },
+    [CommonConst.LOGIN_DATA](state, {resData}) {
+        state.loginData = resData;
     },
 };
 

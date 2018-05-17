@@ -4,7 +4,6 @@
         <Layout>
             <Sider ref="side1" hide-trigger collapsible :collapsed-width="78" v-model="isCollapsed">
                 <Menu active-name="news" theme="dark" width="auto"  @on-select="menuBtnClick"> 
-                   
                     <MenuItem name="news">
                         <Icon type="search"></Icon>
                         <span>新闻动态</span>
@@ -27,7 +26,10 @@
             <Layout>
                 <Header :style="{padding: 0}" class="layout-header-bar">
                     <Icon @click.native="collapsedSider"  :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
+                    <Icon type="person"></Icon>{{username}} 欢迎你
+                    <Button type="ghost" shape="circle"  @click="loginOut" size="24">退出</Button>
                 </Header>
+
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
                     <component :is="nowComp"></component>
                 </Content>
@@ -49,8 +51,6 @@
 
         computed: mapGetters({
             testData: 'testData',
-           
-            
         }),
 
         components: {
@@ -65,7 +65,8 @@
                 nowComp: "news",
                 time:'',
                 date:'',
-                isCollapsed: false
+                isCollapsed: false,
+                username: ''
             }
         },
         mounted(){
@@ -103,12 +104,23 @@
                 let me = this;
                 console.info('test func');
                 me.$store.dispatch('test', {reqData: {}});
+            },
+            loginOut() {
+                let me = this;
+                localStorage.clear();
+                me.$router.push({
+                    path: '/'
+                });
             }
         },
         created() {
             let me = this;
-            console.info(me.$store);
-            // me.test();
+            me.username = localStorage.getItem('username');
+            if(!me.username){
+                me.$router.push({
+                    path: '/'
+                });
+            }
         }
     }
 </script>
