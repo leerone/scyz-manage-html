@@ -89,6 +89,9 @@
                                         type: 'error',
                                         size: 'small'
                                     },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
                                     on: {
                                         click: () => {
                                             let me = this;
@@ -99,7 +102,7 @@
                                 }, '删除'),
                                 h('Button', {
                                     props: {
-                                        type: 'error',
+                                        type: 'success',
                                         size: 'small'
                                     },
                                     on: {
