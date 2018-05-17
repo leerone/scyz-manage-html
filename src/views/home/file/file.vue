@@ -109,6 +109,8 @@
                 if(val && val.data){
                     let list = val.data;
                     list.map(it => {
+                        let newname = it.name.split('=')[1];
+                        it.name = newname;
                         me.data.push(it);
                     });
                 }
@@ -141,13 +143,13 @@
             show (param) {
                 let arr = param.row.url.split('/');
                 let name = arr[arr.length-1];
-                console.info(name);
-                let src = 'http://47.106.177.128:16668/uploadfile/'
+                let src = 'http://47.106.177.128:16668/uploadfile/';
+                let content = "<iframe src='https://view.officeapps.live.com/op/view.aspx?src=http://http://47.106.177.128:16668/uploadfile/'"+param.name+" width='1920px' height='1080px' frameborder='0'></iframe>"
                 this.$Modal.success({
                     title: '预览',
                     width: '80%',
                     closable: true,
-                    content: '<img src="'+src+name+'"></img>'
+                    content: content
                 })
             },
             remove (param) {
