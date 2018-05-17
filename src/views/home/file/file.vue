@@ -230,10 +230,8 @@
 
         methods: {
             show (param) {
-                let arr = param.row.url.split('/');
-                let name = arr[arr.length-1];
                 let src = 'http://47.106.177.128:16668/uploadfile/';
-                let content = "<iframe src='https://view.officeapps.live.com/op/view.aspx?src=http://http://47.106.177.128:16668/uploadfile/'"+param.name+" width='1920px' height='1080px' frameborder='0'></iframe>"
+                let content = "<iframe src='https://view.officeapps.live.com/op/view.aspx?src=http://http://47.106.177.128:16668/uploadfile/'"+param.row.name+" width='1920px' height='1080px' frameborder='0'></iframe>"
                 this.$Modal.success({
                     title: '预览',
                     width: '80%',
