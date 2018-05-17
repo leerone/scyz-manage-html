@@ -61,11 +61,15 @@ export default {
     watch: {
     	"loginData": function (val) {
             let me = this;
-            if(val != '' && val != null){
+            if(val.data){
             	localStorage.setItem('username', val.data.username);
             	me.$router.push({
 	                path: '/index'
 	            });
+            }else {
+            	me.$Message.success('账户密码输入错误');
+            	me.password = '';
+            	
             }
         }
     },

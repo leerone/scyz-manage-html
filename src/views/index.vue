@@ -27,7 +27,7 @@
                 <Header :style="{padding: 0}" class="layout-header-bar">
                     <Icon @click.native="collapsedSider"  :style="{margin: '20px 20px 0'}" type="navicon-round" size="24"></Icon>
                     <Icon type="person"></Icon>{{username}} 欢迎你
-                    <Button type="ghost" shape="circle"  @click="loginOut" size="24">退出</Button>
+                    <Button type="ghost" shape="circle"  @click="loginOut">退出</Button>
                 </Header>
 
                 <Content :style="{margin: '20px', background: '#fff', minHeight: '260px'}">
