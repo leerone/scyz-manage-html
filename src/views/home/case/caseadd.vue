@@ -76,7 +76,7 @@
             </FormItem>
 
             <div class="editor-container">
-                <UE :id=curEditor :defaultMsg=defaultMsg :config=config ref="ue"></UE>
+                <UE :id=curEditor :defaultMsg=defaultMsg  ref="ue"></UE>
             </div>
 
         </Form>
