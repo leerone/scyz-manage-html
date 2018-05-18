@@ -135,26 +135,32 @@
                     name: [
                         { required: true, message: '名字不能为空', trigger: 'blur' }
                     ],
+                    title: [
+                        { required: true, message: '标题不能为空', trigger: 'blur' }
+                    ],
+                    subtitle: [
+                        { required: true, message: '标题不能为空', trigger: 'blur' }
+                    ],
                     content: [
                         { required: true, message: '简介不能为空', trigger: 'blur' }
                     ],
                     height: [
-                        { required: true, message: '不能为空', trigger: 'blur' }
+                        { required: false, message: '不能为空', trigger: 'blur' }
                     ],
                     finishtime: [
-                        { required: true, message: '不能为空', trigger: 'blur' }
+                        { required: false, message: '不能为空', trigger: 'blur' }
                     ],
                     coverage: [
-                        { required: true, message: '不能为空', trigger: 'blur' }
+                        { required: false, message: '不能为空', trigger: 'blur' }
                     ],
                     location: [
-                        { required: true, message: '不能为空', trigger: 'blur' }
+                        { required: false, message: '不能为空', trigger: 'blur' }
                     ],
                     address: [
-                        { required: true, message: '不能为空', trigger: 'blur' }
+                        { required: false, message: '不能为空', trigger: 'blur' }
                     ],
                     scale: [
-                        { required: true, message: '不能为空', trigger: 'blur' }
+                        { required: false, message: '不能为空', trigger: 'blur' }
                     ],
                 },
                 case: {
