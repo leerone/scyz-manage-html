@@ -65,7 +65,8 @@
                     },
                     {
                         title: '简介',
-                        key: 'description'
+                        key: 'description',
+                        ellipsis: true
                     },
                     {
                         title: '发布时间',

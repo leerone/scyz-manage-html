@@ -62,10 +62,10 @@
                         title: '地址',
                         key: 'address'
                     },
-                    {
-                        title: '设计内容',
-                        key: 'content'
-                    },
+                    // {
+                    //     title: '设计内容',
+                    //     key: 'content'
+                    // },
                     {
                         title: '地区',
                         key: 'location'
