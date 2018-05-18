@@ -80,10 +80,11 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.show(params)
+                                            window.open(params.row.url);
+                                            // this.show(params)
                                         }
                                     }
-                                }, '预览'),
+                                }, '下载'),
                                 h('Button', {
                                     props: {
                                         type: 'error',
