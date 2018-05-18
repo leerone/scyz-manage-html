@@ -64,6 +64,10 @@
                         key: 'type'
                     },
                     {
+                        title: '上传时间',
+                        key: 'time'
+                    },
+                    {
                         title: '操作',
                         key: 'action',
                         width: 200,
@@ -125,6 +129,10 @@
                     {
                         title: '内容',
                         key: 'content',
+                    },
+                    {
+                        title: 'ip',
+                        key: 'ip',
                     },
                     {
                         title: '操作',
