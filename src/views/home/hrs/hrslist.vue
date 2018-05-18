@@ -120,6 +120,7 @@
                                     },
                                     on: {
                                         click: () => {
+                                            let me = this;
                                             // this.remove(params);
                                             me.confirm = true;
                                             me.delparams = params;
