@@ -55,7 +55,8 @@
                     },
                     {
                         title: '简介',
-                        key: 'desc1'
+                        key: 'desc1',
+                        ellipsis: true
                     },
                     {
                         title: '详情',
@@ -164,10 +165,10 @@
 
         methods: {
             show (param) {
-                console.info(param);
                 this.$Modal.success({
                     title: '预览',
                     closable: true,
+                    width: '80%',
                     content: '<p>职位: ' + param.row.name + '</p>' 
                             +'<p>简介: ' + param.row.description + '</p>'
                             +'<p>地址: ' + param.row.address + '</p>'
