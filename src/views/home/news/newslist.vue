@@ -65,7 +65,7 @@
                     },
                     {
                         title: '简介',
-                        key: 'desc'
+                        key: 'description'
                     },
                     {
                         title: '发布时间',

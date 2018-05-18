@@ -36,8 +36,8 @@
         </Modal>
 
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-            <FormItem label="类型" prop="type">
-                <Select v-model="formValidate.type" size="large" style="width:200px" class="type-select" @on-select="typeSelect">
+            <FormItem label="类型">
+                <Select v-model="formValidate.type" size="large" style="width:200px" class="type-select" @on-change="typeSelect">
                     <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
             </FormItem>
@@ -98,8 +98,8 @@
                 curEditor: 'ue',
                 defaultMsg: '',
                 config: {
-                  initialFrameWidth: null,
-                  initialFrameHeight: 350
+					initialFrameWidth: null,
+					initialFrameHeight: 350
                 },
                 list: [
                     {
@@ -108,11 +108,11 @@
                     },
                     {
                         value: 'chuanwai',
-                        label: '川内'
+                        label: '川外'
                     },
                     {
                         value: 'chuannei',
-                        label: '川外'
+                        label: '川内'
                     },
                 ],
                 formValidate: {
@@ -203,7 +203,8 @@
 
         methods: {
             typeSelect (type) {
-                console.info(type);
+                let me = this;
+                me.formValidate.type = type;
             },
             postCase(name) {
                 let me = this;
