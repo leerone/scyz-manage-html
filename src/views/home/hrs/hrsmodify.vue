@@ -9,6 +9,18 @@
             <FormItem label="职位" prop="name">
                 <Input v-model="formValidate.name" size="large" placeholder="职位"></Input>
             </FormItem>
+
+            <FormItem label="工作时间" prop="jobtime">
+                <RadioGroup v-model="formValidate.jobtime">
+                    <Radio label="fulltime">
+                        <span>全职</span>
+                    </Radio>
+                    <Radio label="parttime">
+                        <span>兼职</span>
+                    </Radio>
+                </RadioGroup>
+            </FormItem>
+
             <FormItem label="简介" prop="desc">
                 <Input v-model="formValidate.description" size="large" placeholder="简介"></Input>
             </FormItem>
@@ -56,6 +68,7 @@
                 formValidate: {
                     type: '',
                     name: '',
+                    jobtime: '',
                     description: '',
                     desc1: '',
                     desc2: '',
@@ -68,6 +81,9 @@
                     ],
                     name: [
                         { required: true, message: '名字不能为空', trigger: 'blur' }
+                    ],
+                    jobtime: [
+                        { required: true, message: '不能为空', trigger: 'blur' }
                     ],
                     description: [
                         { required: true, message: '简介不能为空', trigger: 'blur' }
@@ -88,6 +104,7 @@
                 hrs: {
                     type: '',
                     title: '',
+                    jobtime: '',
                     description: '',
                     desc1: '',
                     desc2: '',
@@ -143,6 +160,7 @@
                         me.hrs = {
                             id: me.hrsmodifydataid,
                             type: me.formValidate.type,
+                            jobtime: me.formValidate.jobtime,
                             name: me.formValidate.name,
                             description: me.formValidate.description,
                             desc1: me.formValidate.desc1,
@@ -165,7 +183,6 @@
         created() {
             let me = this;
             me.modifyHrsData = me.$store.state.hrs.modifyHrsData;
-            console.info(me.modifyHrsData);
             me.formValidate = me.modifyHrsData;
             me.hrsmodifydataid = me.modifyHrsData.id;
         }

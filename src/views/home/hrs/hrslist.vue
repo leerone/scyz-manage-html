@@ -10,6 +10,14 @@
             <Page :total="pagecount" :current="1" @on-change="changePage"></Page>
         </div>
     </div>
+
+    <Modal
+        v-model="confirm"
+        title="提示"
+        @on-ok="ok"
+        @on-cancel="cancel">
+        <p>确认是否删除?</p>
+    </Modal>
     </div>
 </template>
 
@@ -48,6 +56,10 @@
                     {
                         title: '职位',
                         key: 'name',
+                    },
+                    {
+                        title: '工作时间',
+                        key: 'jobtime'
                     },
                     {
                         title: '地址',
@@ -108,7 +120,9 @@
                                     },
                                     on: {
                                         click: () => {
-                                            this.remove(params)
+                                            // this.remove(params);
+                                            me.confirm = true;
+                                            me.delparams = params;
                                         }
                                     }
                                 }, '删除')
@@ -118,7 +132,9 @@
                 ],
                 data: [
                     
-                ]
+                ],
+                confirm: false,
+                delparams: ''
             }
         },
 
@@ -198,6 +214,14 @@
                 let me = this;
                 me.$store.dispatch('getHrsCount', {reqData: me.hrstype});
                 me.$store.dispatch('getHrsList', {reqData: {'type': me.hrstype, 'page': 1}});
+            },
+            ok () {
+                let me = this;
+                me.remove(me.delparams);
+            },
+            cancel () {
+                let me = this;
+                me.$Message.info('取消');
             }
         },
 
