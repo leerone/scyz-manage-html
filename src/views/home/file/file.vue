@@ -140,8 +140,16 @@
                                     on: {
                                         click: () => {
                                             let me = this;
-                                            // me.delcomment = params;
-                                            me.removeComment(params.row.id);
+                                            this.$Modal.confirm({
+                                                title: '提示',
+                                                content: '确认删除?',
+                                                onOk: () => {
+                                                    me.removeComment(params.row.id);
+                                                },
+                                                onCancel: () => {
+                                                    this.$Message.info('取消删除');
+                                                }
+                                            });
                                         }
                                     }
                                 }, '删除'),
@@ -259,7 +267,6 @@
             },
             ok () {
                 let me = this;
-                console.info(me.delparams);
                 me.remove(me.delparams);
             },
             cancel () {
