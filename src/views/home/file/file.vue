@@ -190,8 +190,7 @@
                 if(val && val.data){
                     let list = val.data;
                     list.map(it => {
-                        let newname = it.name.split('=')[1];
-                        it.name = newname;
+                        it.name = it.name.substring(13,it.name.length);
                         me.data.push(it);
                     });
                 }
