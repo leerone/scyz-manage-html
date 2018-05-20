@@ -67,12 +67,12 @@
                     },
                     {
                         title: '简介',
-                        key: 'desc1',
-                        ellipsis: true
+                        key: 'description',
                     },
                     {
                         title: '详情',
-                        key: 'description'
+                        key: 'desc1',
+                        ellipsis: true
                     },
                     {
                         title: '人数',

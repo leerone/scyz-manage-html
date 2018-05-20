@@ -194,6 +194,7 @@
             },
             newsTypeSelect (type) {
                 let me = this;
+                me.$store.dispatch('getNewsCount', {reqData: me.newstype});
                 me.$store.dispatch('getNewsList', {reqData: {'type': me.newstype, 'page': 1}});
             },
             changePage(index) {
