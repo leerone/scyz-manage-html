@@ -152,6 +152,11 @@
                 if(val && val.data){
                     let list = val.data;
                     list.map(it => {
+                        if(it.jobtime=='fulltime') {
+                            it.jobtime = '全职';
+                        }else if(it.jobtime=='parttime'){
+                            it.jobtime = '兼职';
+                        }
                         me.data.push(it);
                     });
                 }

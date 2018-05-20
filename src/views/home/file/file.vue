@@ -3,6 +3,8 @@
     <div >
         <Upload
             :on-success="handleSuccess"
+            :max-size="10240"
+            :on-exceeded-size="handleMaxSize"
             multiple
             action="http://47.106.177.128:16666/file/uploadfile">
             <Button type="ghost" icon="ios-cloud-upload-outline">文档上传</Button>
@@ -190,10 +192,6 @@
                 if(val && val.data){
                     let list = val.data;
                     list.map(it => {
-                        // it.name = it.name.substring(13,it.name.length);
-                        if(it.cnurl){
-                            it.name = it.cnurl.substring(39,it.cnurl.length);
-                        }
                         me.data.push(it);
                     });
                 }
@@ -275,6 +273,12 @@
             handleSuccess (res, file) {
                 let me = this;
                 me.initTable ();
+            },
+            handleMaxSize (file) {
+                this.$Notice.warning({
+                    title: '超过文件大小限制',
+                    desc: '文件  ' + file.name + ' 太大, 请不要超过 10M.'
+                });
             },
             ok () {
                 let me = this;
