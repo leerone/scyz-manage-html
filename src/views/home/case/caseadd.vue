@@ -1,39 +1,7 @@
 <template>
     <div class="news-add-box">
 
-        <div class="demo-upload-list" v-for="item in uploadList">
-            <template v-if="item.status === 'finished'">
-                <img :src="item.url">
-                <div class="demo-upload-list-cover">
-                    <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
-                    <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
-                </div>
-            </template>
-            <template v-else>
-                <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
-            </template>
-        </div>
-        <Upload
-            ref="upload"
-            :show-upload-list="false"
-            :default-file-list="defaultList"
-            :on-success="handleSuccess"
-            :format="['jpg','jpeg','png']"
-            :max-size="2048"
-            :on-format-error="handleFormatError"
-            :on-exceeded-size="handleMaxSize"
-            :before-upload="handleBeforeUpload"
-            multiple
-            type="drag"
-            action="http://47.106.177.128:16666/file/uploadimage"
-            style="display: inline-block;width:58px;">
-            <div style="width: 58px;height:58px;line-height: 58px;">
-                <Icon type="camera" size="20"></Icon>
-            </div>
-        </Upload>
-        <Modal title="预览" v-model="visible">
-            <img :src="'http://47.106.177.128:16668/uploadimage/' + imgName" v-if="visible" style="width: 100%">
-        </Modal>
+        
 
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
             <FormItem label="类型">
@@ -51,6 +19,41 @@
 
             <FormItem label="项目子标题" prop="subtitle">
                 <Input v-model="formValidate.subtitle" size="large" placeholder="项目子标题"></Input>
+            </FormItem>
+            <FormItem label="简介图片" prop="descimg">
+                <div class="demo-upload-list" v-for="item in uploadList">
+                    <template v-if="item.status === 'finished'">
+                        <img :src="item.url">
+                        <div class="demo-upload-list-cover">
+                            <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
+                            <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
+                        </div>
+                    </template>
+                    <template v-else>
+                        <Progress v-if="item.showProgress" :percent="item.percentage" hide-info></Progress>
+                    </template>
+                </div>
+                <Upload
+                    ref="upload"
+                    :show-upload-list="false"
+                    :default-file-list="defaultList"
+                    :on-success="handleSuccess"
+                    :format="['jpg','jpeg','png']"
+                    :max-size="2048"
+                    :on-format-error="handleFormatError"
+                    :on-exceeded-size="handleMaxSize"
+                    :before-upload="handleBeforeUpload"
+                    multiple
+                    type="drag"
+                    action="http://47.106.177.128:16666/file/uploadimage"
+                    style="display: inline-block;width:58px;">
+                    <div style="width: 58px;height:58px;line-height: 58px;">
+                        <Icon type="camera" size="20"></Icon>
+                    </div>
+                </Upload>
+                <Modal title="预览" v-model="visible">
+                    <img :src="'http://47.106.177.128:16668/uploadimage/' + imgName" v-if="visible" style="width: 100%">
+                </Modal>
             </FormItem>
 
             <FormItem label="项目简介" prop="content">

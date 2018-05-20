@@ -1,7 +1,7 @@
 <template>
 
-    <div >
-        <Button type="primary" @click="addcase" v-show="isShowAddBtn">新增项目案例</Button>
+    <div class="page-bx">
+        <Button type="primary" class='page-btn' @click="addcase" v-show="isShowAddBtn">新增项目案例</Button>
         <component :is="nowComp" @eventFunc="eventFunc"></component>
     </div>
 </template>
@@ -62,5 +62,12 @@
 </script>
 
 <style lang="less">
- 
+    .page-bx {
+        position: relative;
+        >.page-btn {
+            position: absolute;
+            top: 12px;
+            right: 50px;
+        }
+    }
 </style>

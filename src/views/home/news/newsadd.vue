@@ -3,12 +3,16 @@
 
 
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-            <FormItem label="类型" prop="type">
+            <FormItem label="新闻类型" prop="type">
                 <Select v-model="formValidate.type" size="large" style="width:200px" class="type-select" @on-select="typeSelect">
                     <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
             </FormItem>
 
+            
+            <FormItem label="新闻标题" prop="title">
+                <Input v-model="formValidate.title" size="large" placeholder="标题"></Input>
+            </FormItem>
             <FormItem label="简介图片" prop="pic">
                 <div class="demo-upload-list" v-for="item in uploadList">
                     <template v-if="item.status === 'finished'">
@@ -41,10 +45,7 @@
                     </div>
                 </Upload>
             </FormItem>
-            <FormItem label="标题" prop="title">
-                <Input v-model="formValidate.title" size="large" placeholder="标题"></Input>
-            </FormItem>
-            <FormItem label="简介" prop="title">
+            <FormItem label="新闻简介" prop="title">
                 <Input v-model="formValidate.desc" type="textarea" :rows="4" placeholder="简介"></Input>
             </FormItem>
         </Form>
