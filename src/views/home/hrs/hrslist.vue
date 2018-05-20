@@ -68,11 +68,11 @@
                     {
                         title: '简介',
                         key: 'description',
-                        ellipsis: true
                     },
                     {
                         title: '详情',
-                        key: 'desc1'
+                        key: 'desc1',
+                        ellipsis: true
                     },
                     {
                         title: '人数',
