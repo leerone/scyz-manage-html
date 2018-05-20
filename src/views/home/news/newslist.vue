@@ -1,6 +1,6 @@
 <template>
     <div >
-        <Select v-model="newstype" size="large" style="width:200px" class="type-select" @on-change="newsTypeSelect">
+        <Select v-model="newstype" size="large" style="width:200px;padding:10px;" class="type-select" @on-change="newsTypeSelect">
             <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
     

@@ -1,7 +1,6 @@
 <template>
-
-    <div >
-        <Button type="primary" @click="addnews" v-show="isShowAddBtn">新增新闻动态</Button>
+    <div class="page-bx">
+        <Button class='page-btn' type="primary" @click="addnews" v-show="isShowAddBtn">新增新闻动态</Button>
         <component :is="nowComp" @eventFunc="eventFunc"></component>
     </div>
 </template>
@@ -71,5 +70,14 @@
 <style lang="less">
     .editor-container {
         padding-top: 20px;
+    }
+
+    .page-bx {
+        position: relative;
+        >.page-btn {
+            position: absolute;
+            top: 12px;
+            right: 50px;
+        }
     }
 </style>
