@@ -190,7 +190,10 @@
                 if(val && val.data){
                     let list = val.data;
                     list.map(it => {
-                        it.name = it.name.substring(13,it.name.length);
+                        // it.name = it.name.substring(13,it.name.length);
+                        if(it.cnurl){
+                            it.name = it.cnurl.substring(39,it.cnurl.length);
+                        }
                         me.data.push(it);
                     });
                 }
