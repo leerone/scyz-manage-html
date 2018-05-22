@@ -77,10 +77,11 @@
             <FormItem label="地址" prop="address">
                 <Input v-model="formValidate.address" size="large" placeholder="地址"></Input>
             </FormItem>
-
+            <FormItem label="项目详情" prop="address">
             <div class="editor-container">
                 <UE :id=curEditor :defaultMsg=defaultMsg  ref="ue"></UE>
             </div>
+            </FormItem>
 
         </Form>
         <Button type="primary" @click="postCase('formValidate')">提交</Button>
