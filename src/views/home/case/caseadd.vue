@@ -223,6 +223,10 @@
                 me.uploadList.map(it => {
                     arr.push(it.name);
                 });
+                if(me.uploadList.length == 0){
+                    this.$Message.error('请上传简介图片!');
+                    return;
+                }
                 let urls = arr.join(',');
                 me.$refs[name].validate((valid) => {
                     if (valid) {
