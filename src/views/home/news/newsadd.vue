@@ -9,6 +9,9 @@
                 </Select>
             </FormItem>
 
+            <FormItem label="新闻时间" prop="time">
+                <DatePicker type="date" style="width: 200px" format="yyyy-MM-dd" v-model="formValidate.time" @on-change="timechage"></DatePicker>
+            </FormItem>
             
             <FormItem label="新闻标题" prop="title">
                 <Input v-model="formValidate.title" size="large" placeholder="标题"></Input>
@@ -96,7 +99,8 @@
                 formValidate: {
                     type: '',
                     title: '',
-                    desc: ''
+                    desc: '',
+                    time: ''
                 },
                 ruleValidate: {
                     type: [
@@ -114,6 +118,7 @@
                 news: {
                     content: '',
                     title: '',
+                    time: '',
                     type: '',
                     description: ''
                 },
@@ -150,6 +155,30 @@
         },
 
         methods: {
+            timechage() {
+                let me = this;
+                me.formValidate.time = me.formatDate(new Date(me.formValidate.time),'yyyy-MM-dd');
+                console.info(me.formValidate.time);
+            },
+            formatDate(date, fmt) {
+                if (/(y+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+                }
+                let o = {
+                    'M+': date.getMonth() + 1,
+                    'd+': date.getDate(),
+                    'h+': date.getHours(),
+                    'm+': date.getMinutes(),
+                    's+': date.getSeconds()
+                };
+                for (let k in o) {
+                    if (new RegExp(`(${k})`).test(fmt)) {
+                        let str = o[k] + '';
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : ('00' + str).substr(str.length));
+                    }
+                }
+                return fmt;
+            },
             typeSelect (type) {
                 console.info(type);
             },
@@ -165,6 +194,7 @@
                         me.getUEContent();
                         me.news = {
                             content: me.content,
+                            time: me.formValidate.time,
                             type: me.formValidate.type,
                             title: me.formValidate.title,
                             description: me.formValidate.desc,
