@@ -74,7 +74,7 @@
             <FormItem label="地区" prop="location">
                 <Input v-model="formValidate.location" size="large" placeholder="地区"></Input>
             </FormItem>
-            <FormItem label="地址" prop="address">
+            <FormItem label="位置" prop="address">
                 <Input v-model="formValidate.address" size="large" placeholder="地址"></Input>
             </FormItem>
             <FormItem label="项目详情" prop="address">
@@ -143,7 +143,7 @@
                         { required: true, message: '标题不能为空', trigger: 'blur' }
                     ],
                     subtitle: [
-                        { required: true, message: '标题不能为空', trigger: 'blur' }
+                        { required: false, message: '标题不能为空', trigger: 'blur' }
                     ],
                     content: [
                         { required: true, message: '简介不能为空', trigger: 'blur' }
