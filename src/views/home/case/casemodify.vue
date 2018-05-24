@@ -79,11 +79,6 @@
             <FormItem label="位置" prop="address">
                 <Input v-model="formValidate.address" size="large" placeholder="地址"></Input>
             </FormItem>
-            <FormItem label="项目详情" prop="address">
-            <div class="editor-container">
-                <UE :id=curEditor :defaultMsg=defaultMsg  ref="ue"></UE>
-            </div>
-            </FormItem>
 
             <FormItem label="项目详情" prop="address">
                 <div class="editor-container">
