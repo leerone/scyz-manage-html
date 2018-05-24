@@ -17,6 +17,7 @@
             <FormItem label="项目子标题" prop="subtitle">
                 <Input v-model="formValidate.subtitle" size="large" placeholder="项目子标题"></Input>
             </FormItem>
+
             <FormItem label="简介图片" prop="descimg">
                 <div class="demo-upload-list" v-for="item in uploadList">
                     <template v-if="item.status === 'finished'">
@@ -71,13 +72,19 @@
             <FormItem label="地区" prop="location">
                 <Input v-model="formValidate.location" size="large" placeholder="地区"></Input>
             </FormItem>
-            <FormItem label="地址" prop="address">
+            <FormItem label="位置" prop="address">
                 <Input v-model="formValidate.address" size="large" placeholder="地址"></Input>
             </FormItem>
             <FormItem label="项目详情" prop="address">
             <div class="editor-container">
                 <UE :id=curEditor :defaultMsg=defaultMsg  ref="ue"></UE>
             </div>
+            </FormItem>
+
+            <FormItem label="项目详情" prop="address">
+                <div class="editor-container">
+                    <UE :id=curEditor :defaultMsg=defaultMsg  ref="ue"></UE>
+                </div>
             </FormItem>
 
         </Form>

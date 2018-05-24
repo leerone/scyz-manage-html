@@ -9,6 +9,9 @@
             <FormItem label="标题" prop="title">
                 <Input v-model="formValidate.title" size="large" placeholder="标题"></Input>
             </FormItem>
+            <FormItem label="新闻时间" prop="time">
+                <DatePicker type="date" style="width: 200px" format="yyyy-MM-dd" v-model="formValidate.time" @on-change="timechage"></DatePicker>
+            </FormItem>
             <FormItem label="简介" prop="title">
                 <Input v-model="formValidate.description" size="large" placeholder="简介"></Input>
             </FormItem>
@@ -63,7 +66,8 @@
                 formValidate: {
                     type: '',
                     title: '',
-                    description: ''
+                    description: '',
+                    time:''
                 },
                 ruleValidate: {
                     type: [
@@ -123,6 +127,9 @@
         },
 
         methods: {
+            timechage() {
+                console.info(me.formValidate.time);
+            },
             typeSelect (type) {
                 console.info(type);
             },
@@ -136,9 +143,11 @@
                     if (valid) {
                         this.$Message.success('Success!');
                         me.getUEContent();
+
                         me.news = {
                             id: me.newsmodifydataid,
                             content: me.content,
+                            time: me.formValidate.time,
                             type: me.formValidate.type,
                             title: me.formValidate.title,
                             description: me.formValidate.description
