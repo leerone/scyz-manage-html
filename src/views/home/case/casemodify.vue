@@ -5,6 +5,10 @@
                 <Select v-model="formValidate.type" size="large" style="width:200px" class="type-select" @on-change="typeSelect">
                     <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
+
+                <Select v-model="formValidate.subtype" size="large" style="width:200px" class="type-select" v-show="isShowSubtype" on-change="subtypeSelect">
+                    <Option v-for="item in sublist" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
             </FormItem>
             <FormItem label="项目名称" prop="name">
                 <Input v-model="formValidate.name" size="large" placeholder="项目名称"></Input>
@@ -109,6 +113,7 @@
                     initialFrameWidth: null,
                     initialFrameHeight: 350
                 },
+                isShowSubtype: false,
                 list: [
                     {
                         value: 'ganzi',
@@ -123,8 +128,23 @@
                         label: '川外'
                     },
                 ],
+                sublist: [
+                    {
+                        value: 'ganzi',
+                        label: '甘孜'
+                    },
+                    {
+                        value: 'chuanwai',
+                        label: '川外'
+                    },
+                    {
+                        value: 'chuannei',
+                        label: '川内'
+                    },
+                ],
                 formValidate: {
                     type: '',
+                    subtype: '',
                     name: '',
                     title: '',
                     subtitle: '',
@@ -232,7 +252,28 @@
 
         methods: {
             typeSelect (type) {
-                console.info(type);
+                let me = this;
+                me.formValidate.type = type;
+                switch (type) {
+                    case 'ganzi':
+                        me.isShowSubtype = true;
+                        break;
+                    case 'chuannei':
+                        me.isShowSubtype = false;
+                        me.formValidate.subtype = '';
+                        break;
+                    case 'chuanwai':
+                        me.isShowSubtype = false;
+                        me.formValidate.subtype = '';
+                        break;
+                    default:
+                        break;
+                }
+
+            },
+            subtypeSelect (type) {
+                let me = this;
+                me.formValidate.subtype = type;
             },
             postCase(name) {
                 let me = this;
@@ -241,6 +282,7 @@
                         me.getUEContent();
                         me.case = {
                             type: me.formValidate.type,
+                            subtype: me.formValidate.subtype,
                             name: me.formValidate.name,
                             title: me.formValidate.title,
                             subtitle: me.formValidate.subtitle,
