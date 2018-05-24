@@ -143,7 +143,7 @@
                         { required: true, message: '标题不能为空', trigger: 'blur' }
                     ],
                     subtitle: [
-                        { required: true, message: '标题不能为空', trigger: 'blur' }
+                        { required: false, message: '标题不能为空', trigger: 'blur' }
                     ],
                     content: [
                         { required: true, message: '简介不能为空', trigger: 'blur' }
