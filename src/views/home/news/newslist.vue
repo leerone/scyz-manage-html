@@ -185,6 +185,7 @@
             },
             modify (param) {
                 let me = this;
+                console.info(param);
                 me.$emit("eventFunc", 'modify', param);
             },
             remove (param) {

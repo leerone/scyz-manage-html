@@ -127,8 +127,9 @@
         },
 
         methods: {
-            timechage() {
-                console.info(me.formValidate.time);
+            timechage(param) {
+                let me = this;
+                me.formValidate.time = param;
             },
             typeSelect (type) {
                 console.info(type);
@@ -143,7 +144,6 @@
                     if (valid) {
                         this.$Message.success('Success!');
                         me.getUEContent();
-
                         me.news = {
                             id: me.newsmodifydataid,
                             content: me.content,
