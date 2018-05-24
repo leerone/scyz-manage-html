@@ -1,13 +1,17 @@
 <template>
     <div class="news-add-box">
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
-            <FormItem label="类型" prop="type">
-                <Select v-model="formValidate.type" size="large" style="width:200px" class="type-select" @on-select="typeSelect">
+            <FormItem label="类型">
+                <Select v-model="formValidate.type" size="large" style="width:200px" class="type-select" @on-change="typeSelect">
                     <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
+                </Select>
+
+                <Select v-model="formValidate.subtype" size="large" style="width:200px" class="type-select" v-show="isShowSubtype" on-change="subtypeSelect">
+                    <Option v-for="item in sublist" :value="item.value" :key="item.value">{{ item.label }}</Option>
                 </Select>
             </FormItem>
             <FormItem label="项目名称" prop="name">
-                <Input v-model="formValidate.name" size="large" placeholder="职位"></Input>
+                <Input v-model="formValidate.name" size="large" placeholder="项目名称"></Input>
             </FormItem>
 
             <FormItem label="项目标题" prop="title">
@@ -53,8 +57,9 @@
                     <img :src="'http://47.106.177.128:16668/uploadimage/' + imgName" v-if="visible" style="width: 100%">
                 </Modal>
             </FormItem>
+
             <FormItem label="项目简介" prop="content">
-                <Input v-model="formValidate.content" size="large" placeholder="简介"></Input>
+                <Input v-model="formValidate.content" type="textarea" :rows="4" placeholder="项目简介"></Input>
             </FormItem>
             <FormItem label="总建筑高度" prop="height">
                 <Input v-model="formValidate.height" size="large" placeholder="总建筑高度"></Input>
@@ -103,6 +108,7 @@
                     initialFrameWidth: null,
                     initialFrameHeight: 350
                 },
+                isShowSubtype: false,
                 list: [
                     {
                         value: 'ganzi',
@@ -117,8 +123,23 @@
                         label: '川外'
                     },
                 ],
+                sublist: [
+                    {
+                        value: 'ganzi',
+                        label: '甘孜'
+                    },
+                    {
+                        value: 'chuanwai',
+                        label: '川外'
+                    },
+                    {
+                        value: 'chuannei',
+                        label: '川内'
+                    },
+                ],
                 formValidate: {
                     type: '',
+                    subtype: '',
                     name: '',
                     title: '',
                     subtitle: '',
@@ -226,15 +247,40 @@
 
         methods: {
             typeSelect (type) {
-                console.info(type);
+                let me = this;
+                me.formValidate.type = type;
+                switch (type) {
+                    case 'ganzi':
+                        me.isShowSubtype = true;
+                        break;
+                    case 'chuannei':
+                        me.isShowSubtype = false;
+                        me.formValidate.subtype = '';
+                        break;
+                    case 'chuanwai':
+                        me.isShowSubtype = false;
+                        me.formValidate.subtype = '';
+                        break;
+                    default:
+                        break;
+                }
+
+            },
+            subtypeSelect (type) {
+                let me = this;
+                me.formValidate.subtype = type;
             },
             postCase(name) {
                 let me = this;
                 me.$refs[name].validate((valid) => {
                     if (valid) {
+                        me.getUEContent();
                         me.case = {
                             type: me.formValidate.type,
+                            subtype: me.formValidate.subtype,
                             name: me.formValidate.name,
+                            title: me.formValidate.title,
+                            subtitle: me.formValidate.subtitle,
                             content: me.formValidate.content,
                             height: me.formValidate.height,
                             finishtime: me.formValidate.finishtime,
@@ -242,6 +288,8 @@
                             location: me.formValidate.location,
                             address: me.formValidate.address,
                             scale: me.formValidate.scale,
+                            url: urls,
+                            richtext: me.content,
                             id: me.casemodifydataid
                         }
                         me.$store.dispatch('updateCase', {reqData: me.case});
@@ -253,6 +301,10 @@
             backTo() {
                 let me = this;
                 me.$emit("eventFunc", 'back');
+            },
+            getUEContent() {
+                let me = this;
+                me.content = me.$refs.ue.getUEContent();
             },
             handleView (name) {
                 this.imgName = name;
@@ -289,10 +341,6 @@
                 }
                 return check;
             },
-            getUEContent() {
-                let me = this;
-                me.content = me.$refs.ue.getUEContent();
-            },
         },
 
         created() {
@@ -300,6 +348,7 @@
             me.modifyCaseData = me.$store.state.cases.modifyCaseData;
             me.formValidate = me.modifyCaseData;
             me.casemodifydataid = me.modifyCaseData.id;
+            me.defaultMsg = me.modifyCaseData.richtext;
         }
     }
 </script>
