@@ -123,16 +123,76 @@
                 ],
                 sublist: [
                     {
-                        value: 'ganzi',
-                        label: '甘孜'
+                        value: 'ld',
+                        label: '泸定县'
                     },
                     {
-                        value: 'chuanwai',
-                        label: '川外'
+                        value: 'kd',
+                        label: '康定市'
                     },
                     {
-                        value: 'chuannei',
-                        label: '川内'
+                        value: 'db',
+                        label: '丹巴县'
+                    },
+                    {
+                        value: 'sd',
+                        label: '色达县'
+                    },
+                    {
+                        value: 'jl',
+                        label: '九龙县'
+                    },
+                    {
+                        value: 'yj',
+                        label: '雅江县'
+                    },
+                    {
+                        value: 'lt',
+                        label: '理塘县'
+                    },
+                    {
+                        value: 'dc',
+                        label: '稻城县'
+                    },
+                    {
+                        value: 'xc',
+                        label: '乡城县'
+                    },
+                    {
+                        value: 'dr',
+                        label: '得荣县'
+                    },
+                    {
+                        value: 'bt',
+                        label: '巴塘县'
+                    },
+                    {
+                        value: 'df',
+                        label: '道孚县'
+                    },
+                    {
+                        value: 'lh',
+                        label: '炉霍县'
+                    },
+                    {
+                        value: 'gz',
+                        label: '甘孜县'
+                    },
+                    {
+                        value: 'dg',
+                        label: '德格'
+                    },
+                    {
+                        value: 'sq',
+                        label: '石渠县'
+                    },
+                    {
+                        value: 'by',
+                        label: '白玉县'
+                    },
+                    {
+                        value: 'xl',
+                        label: '新龙县'
                     },
                 ],
                 formValidate: {
@@ -152,6 +212,9 @@
                 ruleValidate: {
                     type: [
                         { required: true, message: '类型不能为空', trigger: 'blur' }
+                    ],
+                    subtype: [
+                        { required: false, message: '类型不能为空', trigger: 'blur' }
                     ],
                     name: [
                         { required: true, message: '名字不能为空', trigger: 'blur' }
@@ -211,7 +274,6 @@
 
         computed: mapGetters({
             caseAddData: 'caseAddData',
-            
         }),
 
         watch:{
@@ -288,7 +350,6 @@
                             url: urls,
                             richtext: me.content
                         }
-                        console.info(me.case);
                         me.$store.dispatch('addCase', {reqData: me.case});
                     } else {
                         this.$Message.error('请填写完整信息!');

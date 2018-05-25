@@ -125,16 +125,76 @@
                 ],
                 sublist: [
                     {
-                        value: 'ganzi',
-                        label: '甘孜'
+                        value: 'ld',
+                        label: '泸定县'
                     },
                     {
-                        value: 'chuanwai',
-                        label: '川外'
+                        value: 'kd',
+                        label: '康定市'
                     },
                     {
-                        value: 'chuannei',
-                        label: '川内'
+                        value: 'db',
+                        label: '丹巴县'
+                    },
+                    {
+                        value: 'sd',
+                        label: '色达县'
+                    },
+                    {
+                        value: 'jl',
+                        label: '九龙县'
+                    },
+                    {
+                        value: 'yj',
+                        label: '雅江县'
+                    },
+                    {
+                        value: 'lt',
+                        label: '理塘县'
+                    },
+                    {
+                        value: 'dc',
+                        label: '稻城县'
+                    },
+                    {
+                        value: 'xc',
+                        label: '乡城县'
+                    },
+                    {
+                        value: 'dr',
+                        label: '得荣县'
+                    },
+                    {
+                        value: 'bt',
+                        label: '巴塘县'
+                    },
+                    {
+                        value: 'df',
+                        label: '道孚县'
+                    },
+                    {
+                        value: 'lh',
+                        label: '炉霍县'
+                    },
+                    {
+                        value: 'gz',
+                        label: '甘孜县'
+                    },
+                    {
+                        value: 'dg',
+                        label: '德格'
+                    },
+                    {
+                        value: 'sq',
+                        label: '石渠县'
+                    },
+                    {
+                        value: 'by',
+                        label: '白玉县'
+                    },
+                    {
+                        value: 'xl',
+                        label: '新龙县'
                     },
                 ],
                 formValidate: {
@@ -154,6 +214,9 @@
                 ruleValidate: {
                     type: [
                         { required: true, message: '类型不能为空', trigger: 'blur' }
+                    ],
+                    subtype: [
+                        { required: false, message: '类型不能为空', trigger: 'blur' }
                     ],
                     name: [
                         { required: true, message: '名字不能为空', trigger: 'blur' }
@@ -188,6 +251,7 @@
                 },
                 case: {
                     type: '',
+                    subtype: '',
                     name: '',
                     title: '',
                     subtitle: '',
@@ -242,7 +306,7 @@
         },
 
         mounted(){
-
+            this.uploadList = this.$refs.upload.fileList;
         },
 
         methods: {
@@ -272,6 +336,17 @@
             },
             postCase(name) {
                 let me = this;
+
+                // 拿到图片做循环 然后插入到case表中, 插入成功后取出url, update file表做关联.
+                var arr=new Array();
+                me.uploadList.map(it => {
+                    arr.push(it.name);
+                });
+                if(me.uploadList.length == 0){
+                    this.$Message.error('请上传简介图片!');
+                    return;
+                }
+                let urls = arr.join(',');
                 me.$refs[name].validate((valid) => {
                     if (valid) {
                         me.getUEContent();
@@ -346,6 +421,10 @@
         created() {
             let me = this;
             me.modifyCaseData = me.$store.state.cases.modifyCaseData;
+            console.info(me.modifyCaseData);
+            if(me.modifyCaseData.type=='ganzi'){
+                me.isShowSubtype = true;
+            }
             me.formValidate = me.modifyCaseData;
             me.casemodifydataid = me.modifyCaseData.id;
             me.defaultMsg = me.modifyCaseData.richtext;
