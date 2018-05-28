@@ -420,6 +420,7 @@
 
         created() {
             let me = this;
+            let baseUrl = 'http://47.106.177.128:16668/uploadimage/';
             me.modifyCaseData = me.$store.state.cases.modifyCaseData;
             console.info(me.modifyCaseData);
             if(me.modifyCaseData.type=='ganzi'){
@@ -428,6 +429,11 @@
             me.formValidate = me.modifyCaseData;
             me.casemodifydataid = me.modifyCaseData.id;
             me.defaultMsg = me.modifyCaseData.richtext;
+
+            me.defaultList.push({
+                name: me.modifyCaseData.name,
+                url: baseUrl + me.modifyCaseData.url
+            });
         }
     }
 </script>
