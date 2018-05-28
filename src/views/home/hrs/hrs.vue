@@ -1,7 +1,10 @@
 <template>
 
     <div class="page-bx">
-        <Button type="primary" class='page-btn' @click="addhrs" v-show="isShowAddBtn">新增招聘信息</Button>
+        <div class="btns-bx">
+            <Button type="primary" class='page-btn' @click="addhrs" v-show="isShowAddBtn">新增招聘信息</Button>
+            <i-button class="page-btn" type="primary" icon="arrow-return-left"  @click="eventFunc('back')" ></i-button>
+        </div>
         <component :is="nowComp" @eventFunc="eventFunc"></component>
     </div>
 </template>
@@ -53,7 +56,7 @@
                     default:
                         break;
                 }
-            },
+            }
         },
         created() {
             let me = this;
@@ -62,12 +65,5 @@
 </script>
 
 <style lang="less">
-    .page-bx {
-        position: relative;
-        >.page-btn {
-            position: absolute;
-            top: 12px;
-            right: 50px;
-        }
-    }
+
 </style>

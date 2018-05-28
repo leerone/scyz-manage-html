@@ -1,6 +1,6 @@
 <template>
     <div class="news-add-box">
-        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="80">
+        <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
             <FormItem label="类型" prop="type">
                 <Select v-model="formValidate.type" size="large" style="width:200px" class="type-select" @on-select="typeSelect">
                     <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
@@ -15,14 +15,17 @@
             <FormItem label="简介" prop="title">
                 <Input v-model="formValidate.description" size="large" placeholder="简介"></Input>
             </FormItem>
+            <FormItem label="新闻详情" prop="newDetail">
+                <div class="editor-container">
+                    <UE :id=curEditor :defaultMsg=defaultMsg ref="ue"></UE>
+                </div>
+            </FormItem>
         </Form>
-        <!-- <Input v-model="type" type="textarea" placeholder="富文本"></Input> -->
-        <div class="editor-container">
-            <UE :id=curEditor :defaultMsg=defaultMsg :config=config ref="ue"></UE>
-        </div>
 
-        <Button type="primary" @click="postNews('formValidate')">发布</Button>
-        <Button type="primary" @click="backTo()">返回</Button>
+        <div class="page-btm-btn">
+            <Button type="primary" @click="postNews('formValidate')">发布</Button>
+            <Button type="primary" @click="backTo()">返回</Button>
+        </div>
     </div>
 </template>
 
@@ -186,7 +189,7 @@
         .editor-container {
             position: relative;
             z-index: 1;
-            padding: 20px;
+            padding: 0px;
         }
         .ivu-form-item-label {
             width: 120px;

@@ -1,6 +1,9 @@
 <template>
     <div class="page-bx">
-        <Button class='page-btn' type="primary" @click="addnews" v-show="isShowAddBtn">新增新闻动态</Button>
+        <div class="btns-bx">
+            <Button class='page-btn' type="primary" @click="addnews" v-show="isShowAddBtn">新增新闻动态</Button>
+            <i-button class="page-btn" type="primary" icon="arrow-return-left"  @click="eventFunc('back')" ></i-button>
+        </div>
         <component :is="nowComp" @eventFunc="eventFunc"></component>
     </div>
 </template>
@@ -69,15 +72,6 @@
 
 <style lang="less">
     .editor-container {
-        padding-top: 20px;
-    }
-
-    .page-bx {
-        position: relative;
-        >.page-btn {
-            position: absolute;
-            top: 12px;
-            right: 50px;
-        }
+        padding-top: 0px;
     }
 </style>
