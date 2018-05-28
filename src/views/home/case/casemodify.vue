@@ -27,7 +27,7 @@
                     <template v-if="item.status === 'finished'">
                         <img :src="item.url">
                         <div class="demo-upload-list-cover">
-                            <Icon type="ios-eye-outline" @click.native="handleView(item.name)"></Icon>
+                            <Icon type="ios-eye-outline" @click.native="handleView(item.url)"></Icon>
                             <Icon type="ios-trash-outline" @click.native="handleRemove(item)"></Icon>
                         </div>
                     </template>
@@ -54,7 +54,7 @@
                     </div>
                 </Upload>
                 <Modal title="预览" v-model="visible">
-                    <img :src="'http://47.106.177.128:16668/uploadimage/' + imgName" v-if="visible" style="width: 100%">
+                    <img :src="imgName" v-if="visible" style="width: 100%">
                 </Modal>
             </FormItem>
 
@@ -109,6 +109,7 @@
                     initialFrameHeight: 350
                 },
                 isShowSubtype: false,
+                baseUrl: 'http://47.106.177.128:16668/uploadimage/',
                 list: [
                     {
                         value: 'ganzi',
@@ -420,7 +421,6 @@
 
         created() {
             let me = this;
-            let baseUrl = 'http://47.106.177.128:16668/uploadimage/';
             me.modifyCaseData = me.$store.state.cases.modifyCaseData;
             console.info(me.modifyCaseData);
             if(me.modifyCaseData.type=='ganzi'){
@@ -432,7 +432,7 @@
 
             me.defaultList.push({
                 name: me.modifyCaseData.name,
-                url: baseUrl + me.modifyCaseData.url
+                url: me.baseUrl + me.modifyCaseData.url
             });
         }
     }
