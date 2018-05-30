@@ -339,17 +339,18 @@
             },
             postCase(name) {
                 let me = this;
-
                 // 拿到图片做循环 然后插入到case表中, 插入成功后取出url, update file表做关联.
                 var arr=new Array();
                 me.uploadList.map(it => {
-                    arr.push(it.name);
+                    arr.push(it.url);
                 });
                 if(me.uploadList.length == 0){
                     this.$Message.error('请上传简介图片!');
                     return;
                 }
-                let urls = arr.join(',');
+                //let urls = arr.join(',');
+                let urls = arr[0]; //取第一张作为简介图片
+                urls = urls.substr(urls.lastIndexOf('/') + 1);
                 me.$refs[name].validate((valid) => {
                     if (valid) {
                         me.getUEContent();
@@ -411,10 +412,11 @@
                 });
             },
             handleBeforeUpload () {
-                const check = this.uploadList.length < 5;
+                const limit = 1; //简介图片只允许上传一张
+                const check = this.uploadList.length < limit;
                 if (!check) {
                     this.$Notice.warning({
-                        title: '一次上传最多不超过5张.'
+                        title: '简介图片只允许上传一张, 更多图片请在项目详情中添加！'
                     });
                 }
                 return check;

@@ -1,7 +1,5 @@
 <template>
     <div class="news-add-box">
-
-
         <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
             <FormItem label="新闻类型" prop="type">
                 <Select v-model="formValidate.type" size="large" style="width:200px" class="type-select" @on-select="typeSelect">
@@ -241,10 +239,11 @@
                 });
             },
             handleBeforeUpload () {
-                const check = this.uploadList.length < 5;
+                const limit = 1; //简介图片只允许上传一张
+                const check = this.uploadList.length < limit;
                 if (!check) {
                     this.$Notice.warning({
-                        title: '一次上传最多不超过5张.'
+                        title: '简介图片只允许上传一张!'
                     });
                 }
                 return check;

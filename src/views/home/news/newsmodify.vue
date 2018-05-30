@@ -100,7 +100,6 @@
         watch:{
             "newsAddData": function (val) {
                 let me = this;
-                // alert(val);
                 if(val.data == 1){
                     me.$Notice.open({
                         title: '提醒',
