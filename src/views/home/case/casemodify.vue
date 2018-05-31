@@ -416,7 +416,8 @@
                 const check = this.uploadList.length < limit;
                 if (!check) {
                     this.$Notice.warning({
-                        title: '简介图片只允许上传一张, 更多图片请在项目详情中添加！'
+                        title: '简介图片只允许上传一张,<div> 更多图片请在项目详情中添加！</div>',
+                        width: 500
                     });
                 }
                 return check;

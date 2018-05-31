@@ -389,10 +389,11 @@
                 });
             },
             handleBeforeUpload () {
-                const check = this.uploadList.length < 5;
+                const limit = 1; //简介图片只允许上传一张
+                const check = this.uploadList.length < limit;
                 if (!check) {
                     this.$Notice.warning({
-                        title: '一次上传最多不超过5张.'
+                        title: '简介图片只允许上传一张, <div>更多图片请在项目详情中添加！</div>'
                     });
                 }
                 return check;
