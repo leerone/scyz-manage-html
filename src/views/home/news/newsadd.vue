@@ -8,7 +8,7 @@
             </FormItem>
 
             <FormItem label="新闻时间" prop="time">
-                <DatePicker type="date" style="width: 200px" format="yyyy-MM-dd" v-model="formValidate.time" @on-change="timechage"></DatePicker>
+                <DatePicker type="datetime" style="width: 200px" format="yyyy-MM-dd  HH:mm:ss" v-model="formValidate.time" @on-change="timechage"></DatePicker>
             </FormItem>
             
             <FormItem label="新闻标题" prop="title">
@@ -141,11 +141,10 @@
         watch:{
             "newsAddData": function (val) {
                 let me = this;
-                // alert(val);
-                if(val.data == 1){
+                if (val.data == 1) {
                     me.$Message.success('新增新闻动态成功');
                     me.backTo();
-                }else {
+                } else {
                     me.$Message.error('新增新闻动态失败');
                 }
             }
@@ -158,7 +157,7 @@
         methods: {
             timechage() {
                 let me = this;
-                me.formValidate.time = me.formatDate(new Date(me.formValidate.time),'yyyy-MM-dd');
+                me.formValidate.time = me.formatDate(new Date(me.formValidate.time),'yyyy-MM-dd hh:mm:ss');
                 console.info(me.formValidate.time);
             },
             formatDate(date, fmt) {
@@ -191,7 +190,6 @@
                 let me = this;
                 me.$refs[name].validate((valid) => {
                     if (valid) {
-                        // this.$Message.success('Success!');
                         me.getUEContent();
                         me.news = {
                             content: me.content,

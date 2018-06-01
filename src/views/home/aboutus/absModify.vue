@@ -9,13 +9,13 @@
             <FormItem label="标题" prop="title">
                 <Input v-model="formValidate.title" size="large" placeholder="标题"></Input>
             </FormItem>
-            <FormItem label="新闻时间" prop="time">
-                <DatePicker type="datetime" style="width: 200px" format="yyyy-MM-dd  HH:mm:ss" v-model="formValidate.time" @on-change="timechage"></DatePicker>
+            <FormItem label="文章来源" prop="reference">
+                <Input v-model="formValidate.reference" size="large" placeholder="文章来源"></Input>
             </FormItem>
-            <FormItem label="简介" prop="title">
-                <Input v-model="formValidate.description" size="large" placeholder="简介"></Input>
-            </FormItem>
-            <FormItem label="新闻详情" prop="newDetail">
+            <FormItem label="时间" prop="time">
+                <DatePicker type="datetime" style="width: 200px" format="yyyy-MM-dd HH:mm:ss" v-model="formValidate.time" @on-change="timechage"></DatePicker>
+            </FormItem>            
+            <FormItem label="详情" prop="absDetail">
                 <div class="editor-container">
                     <UE :id=curEditor :defaultMsg=defaultMsg ref="ue"></UE>
                 </div>
@@ -23,7 +23,7 @@
         </Form>
 
         <div class="page-btm-btn">
-            <Button type="primary" @click="postNews('formValidate')">发布</Button>
+            <Button type="primary" @click="postAboutus('formValidate')">发布</Button>
             <Button type="primary" @click="backTo()">返回</Button>
         </div>
     </div>
@@ -34,7 +34,7 @@
     import { mapGetters } from 'vuex';
     export default {
 
-        // props: ['newsmodifydata'],
+        // props: ['absModifyData'],
 
         components: {
             UE
@@ -50,76 +50,72 @@
                 },
                 list: [
                     {
-                        value: 'hangye',
-                        label: '行业新闻'
+                        value: 'active',
+                        label: '员工活动'
                     },
                     {
-                        value: 'qiye',
-                        label: '企业新闻'
+                        value: 'honour',
+                        label: '奖励与荣耀'
                     },
                     {
-                        value: 'biao',
-                        label: '中标公告'
-                    },
-                    {
-                        value: 'notes',
-                        label: '通知公告'
-                    },
+                        value: 'training',
+                        label: '学习与培训'
+                    }
                 ],
                 formValidate: {
                     type: '',
                     title: '',
-                    description: '',
-                    time:''
+                    reference: '',
+                    time:'',
                 },
                 ruleValidate: {
                     type: [
-                        { required: true, message: '新闻类型不能为空', trigger: 'blur' }
+                        { required: true, message: '类型不能为空', trigger: 'blur' }
                     ],
                     title: [
-                        { required: true, message: '新闻标题不能为空', trigger: 'blur' }
+                        { required: true, message: '标题不能为空', trigger: 'blur' }
                     ],
-                    desc: [
-                        { required: true, message: '新闻简介不能为空', trigger: 'blur' }
+                    content: [
+                        { required: true, message: '详情不能为空', trigger: 'blur' }
                     ],
                 },
                 content: '',
                 
                 // news: this.newsDo
-                newsmodifydataid: ''
+                absmodifydataid: ''
                
             }
         },
 
         computed: mapGetters({
-            newsAddData: 'newsAddData',
-            newsModifyData: 'newsModifyData',
-            newsUpdateData: 'newsUpdateData'
+            absAddData: 'absAddData',
+            absModifyData: 'absModifyData',
+            absUpdateData: 'absUpdateData'
         }),
 
         watch:{
-            "newsAddData": function (val) {
+            "absAddData": function (val) {
                 let me = this;
                 if (val.data == 1) {
                     me.$Notice.open({
                         title: '提醒',
-                        desc: '新增新闻动态成功 '
+                        desc: '新增成功 '
                     });
                     me.backTo();
                 } else {
                     me.$Notice.open({
                         title: '提醒',
-                        desc: '新增新闻动态失败 '
+                        desc: '新增失败 '
                     });
                 }
             },
-            "newsUpdateData": function (val) {
+            "absUpdateData": function (val) {
                 let me = this;
-                if (val.data == 1) {
-                    me.$Message.success('更新新闻动态成功');
+                if(val.data == 1){
+                    me.$Message.success('更新动态成功');
                     me.backTo();
-                } else {
-                    me.$Message.error('更新新闻动态失败');
+                }else {
+                    me.$Message.error('更新动态失败');
                 }
             },
         },
@@ -140,20 +136,20 @@
                 let me = this;
                 me.content = me.$refs.ue.getUEContent();
             },
-            postNews(name) {
+            postAboutus(name) {
                 let me = this;
                 me.$refs[name].validate((valid) => {
                     if (valid) {
                         me.getUEContent();
-                        me.news = {
-                            id: me.newsmodifydataid,
+                        me.abs = {
+                            id: me.absmodifydataid,
                             content: me.content,
                             time: me.formatDate(new Date(me.formValidate.time),'yyyy-MM-dd hh:mm:ss'),
                             type: me.formValidate.type,
                             title: me.formValidate.title,
-                            description: me.formValidate.description
+                            reference: me.formValidate.reference
                         }
-                        me.$store.dispatch('updateNews', {reqData: me.news});
+                        me.$store.dispatch('updateAbs', {reqData: me.abs});
                     } else {
                         this.$Message.error('请填写完整信息!');
                     }
@@ -189,10 +185,10 @@
 
         created() {
             let me = this;
-            me.modifyNewsData = me.$store.state.news.modifyNewsData;
-            me.formValidate = me.modifyNewsData;
-            me.defaultMsg = me.modifyNewsData.content;
-            me.newsmodifydataid = me.modifyNewsData.id;
+            me.modifyAbsData = me.$store.state.abs.modifyAbsData;
+            me.formValidate = me.modifyAbsData;
+            me.defaultMsg = me.modifyAbsData.content;
+            me.absmodifydataid = me.modifyAbsData.id;
         }
     }
 </script>

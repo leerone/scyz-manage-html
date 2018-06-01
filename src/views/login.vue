@@ -45,8 +45,8 @@ export default {
     data () {
         return {
             form: {
-                username: 'admin',
-                password: '123456'
+                username: '',
+                password: ''
             },
             rules: {
                 username: [
@@ -63,6 +63,7 @@ export default {
             let me = this;
             if(val.data){
             	localStorage.setItem('username', val.data.username);
+                localStorage.setItem('userId', val.data.id);
             	me.$router.push({
 	                path: '/index'
 	            });

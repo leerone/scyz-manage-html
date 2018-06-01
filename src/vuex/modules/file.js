@@ -1,6 +1,4 @@
-/**
- * Created by tangyue on 2017-10-23.
- */
+
 import axios from 'axios'
 import * as CommonConst from '../CommonConst'
 import Qs from 'qs'
@@ -9,21 +7,16 @@ const state = {
     fileListData: '',
     fileCountData: '',
     delFileData: '',
-    loginData: '',
     fileCommentList: '',
     delCommentData: '',
 };
 
 const getters = {
-
-    // news start
     fileListData:state => state.fileListData,
     fileCountData:state => state.fileCountData,
     delFileData:state => state.delFileData,
-    loginData:state => state.loginData,
     fileCommentList:state => state.fileCommentList,
-    delCommentData:state => state.delCommentData,
-    // news end
+    delCommentData:state => state.delCommentData
 };
 
 const actions = {
@@ -83,17 +76,6 @@ const actions = {
                 commit(CommonConst.DEL_COMMENT_DATA, {resData: []});
             });
     },
-    // 登陆
-    login({commit}, {reqData}){
-        axios.get(CommonConst.LOGIN_URL+'?username='+reqData.username+'&password='+reqData.password)
-            .then(resData => {
-                let commitData = resData;
-                commit(CommonConst.LOGIN_DATA, {resData: commitData});
-            })
-            .catch(e => {
-                commit(CommonConst.LOGIN_DATA, {resData: []});
-            });
-    },
 };
 
 const mutations = {
@@ -105,9 +87,6 @@ const mutations = {
     },
     [CommonConst.DEL_FILE_DATA](state, {resData}) {
         state.delFileData = resData;
-    },
-    [CommonConst.LOGIN_DATA](state, {resData}) {
-        state.loginData = resData;
     },
     [CommonConst.FILE_COMMENT_LIST](state, {resData}) {
         state.fileCommentList = resData;

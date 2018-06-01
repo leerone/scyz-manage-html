@@ -9,6 +9,8 @@ import news from './modules/news'
 import hrs from './modules/hrs'
 import cases from './modules/case'
 import file from './modules/file'
+import abs from './modules/abs'
+import login from './modules/login'
 
 /* Vue加载状态管理器实例 */
 Vue.use(Vuex);
@@ -19,6 +21,8 @@ export default new Vuex.Store({
         hrs,
         cases,
         file,
+        abs,
+        login
     },
     strict: false
 });

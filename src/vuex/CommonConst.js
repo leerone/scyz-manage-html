@@ -1,8 +1,8 @@
 /*********************************************************************
  *********************************************************************/
 
-export const URL = "http://47.106.177.128:16666";
-//export const URL = "http://localhost:16666";
+//export const URL = "http://47.106.177.128:16666";
+export const URL = "http://localhost:16666";
 
 export const TEST_DATA = "TEST_DATA";
 
@@ -98,4 +98,24 @@ export const DEL_COMMENT_URL = URL + '/file/delComment';
 export const LOGIN_DATA = "LOGIN_DATA";
 export const LOGIN_URL = URL + '/login';
 
+//关于我们
+export const ADD_ABS_DATA_URL = URL + "/aboutus/inserAboutUs";
+export const ADD_ABS_DATA = "ADD_ABS_DATA";
 
+export const ABS_LIST_DATA_URL = URL + "/aboutus/getAboutUsList";
+export const ABS_LIST_DATA = "ABS_LIST_DATA";
+
+export const ABS_COUNT_DATA_URL = URL + "/aboutus/getAboutUsCount";
+export const ABS_COUNT_DATA = "ABS_COUNT_DATA";
+
+export const DEL_ABS_URL = URL + "/aboutus/delAboutUs";
+export const DEL_ABS_DATA = "DEL_ABS_DATA";
+
+export const UPDATE_ABS_DATA_URL = URL + "/aboutus/updateAboutUs";
+export const UPDATE_ABS_DATA = "UPDATE_ABS_DATA";
+
+export const MODIFY_ABS_DATA = "MODIFY_ABS_DATA";
+
+//获取当前用户
+export const CUR_USER_DATA_URL = URL + "/getCurUser";
+export const CUR_USER_DATA = "CUR_USER_DATA";

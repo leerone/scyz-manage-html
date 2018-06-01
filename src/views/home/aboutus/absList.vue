@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Select v-model="newstype" size="large" style="width:200px;" class="type-select" @on-change="newsTypeSelect">
+        <Select v-model="absType" size="large" style="width:200px;" class="type-select" @on-change="absTypeSelect">
             <Option v-for="item in list" :value="item.value" :key="item.value">{{ item.label }}</Option>
         </Select>
     
@@ -31,32 +31,28 @@
         },
 
         computed: mapGetters({
-            newsListData: 'newsListData',
-            delNewsData: 'delNewsData',
-            newsCountData: 'newsCountData',
+            absListData: 'absListData',
+            delAbsData: 'delAbsData',
+            absCountData: 'absCountData'
         }),
 
         data () {
             return {
                 list: [
                     {
-                        value: 'hangye',
-                        label: '行业新闻'
+                        value: 'active',
+                        label: '员工活动'
                     },
                     {
-                        value: 'qiye',
-                        label: '企业新闻'
+                        value: 'honour',
+                        label: '奖励与荣耀'
                     },
                     {
-                        value: 'biao',
-                        label: '中标公告'
-                    },
-                    {
-                        value: 'notes',
-                        label: '通知公告'
-                    },
+                        value: 'training',
+                        label: '学习与培训'
+                    }
                 ],
-                newstype: '',
+                absType: '',
                 pagecount: 0,
                 columns: [
                     {
@@ -64,9 +60,13 @@
                         key: 'title',
                     },
                     {
-                        title: '简介',
-                        key: 'description',
+                        title: '详情',
+                        key: 'content',
                         ellipsis: true
+                    },
+                    {
+                        title: '文章来源',
+                        key: 'reference'
                     },
                     {
                         title: '发布时间',
@@ -132,42 +132,39 @@
             }
         },
 
-       
-
         mounted(){
 
         },
 
         watch:{
-            "newsListData": function (val) {
+            "absListData": function (val) {
                 let me = this;
                 me.data = [];
-                if (val && val.data) {
-                    console.info(val);
+                if(val && val.data) {
                     let list = val.data;
                     list.map(it => {
                         me.data.push(it);
                     });
                 }
             },
-            "newsCountData": function (val) {
+            "absCountData": function (val) {
                 let me = this;
                 if(val && val.data){
                     me.pagecount = val.data;
                 }
             },
-            "delNewsData": function (val) {
+            "delAbsData": function (val) {
                 let me = this;
-                if (val.data == 1) {
+                if(val.data == 1) {
                     me.$Notice.open({
                         title: '提醒',
-                        desc: '删除新闻成功 '
+                        desc: '删除成功 '
                     });
                     me.initTable();
                 } else {
                     me.$Notice.open({
                         title: '提醒',
-                        desc: '删除新闻失败 '
+                        desc: '删除失败 '
                     });
                 }
             },
@@ -185,31 +182,29 @@
             },
             modify (param) {
                 let me = this;
-                console.info(param);
                 me.$emit("eventFunc", 'modify', param);
             },
             remove (param) {
                 let me = this;
                 let id = param.row.id;
-                me.$store.dispatch('delNews', {reqData: id});
+                me.$store.dispatch('delAbs', {reqData: id});
             },
-            newsTypeSelect (type) {
+            absTypeSelect (type) {
                 let me = this;
-                me.$store.dispatch('getNewsCount', {reqData: me.newstype});
-                me.$store.dispatch('getNewsList', {reqData: {'type': me.newstype, 'page': 1}});
+                me.$store.dispatch('getAbsCount', {reqData: me.absType});
+                me.$store.dispatch('getAbsList', {reqData: {'type': me.absType, 'page': 1}});
             },
             changePage(index) {
                 let me = this;
-                me.$store.dispatch('getNewsList', {reqData: {'type': me.newstype, 'page': index}});
+                me.$store.dispatch('getAbsList', {reqData: {'type': me.absType, 'page': index}});
             },
             initTable () {
                 let me = this;
-                me.$store.dispatch('getNewsCount', {reqData: me.newstype});
-                me.$store.dispatch('getNewsList', {reqData: {'type': me.newstype, 'page': 1}});
+                me.$store.dispatch('getAbsCount', {reqData: me.absType});
+                me.$store.dispatch('getAbsList', {reqData: {'type': me.absType, 'page': 1}});
             },
             ok () {
                 let me = this;
-                console.info(me.delparams);
                 me.remove(me.delparams);
             },
             cancel () {

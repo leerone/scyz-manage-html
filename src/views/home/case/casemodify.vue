@@ -289,21 +289,20 @@
         watch:{
             "caseAddData": function (val) {
                 let me = this;
-                // alert(val);
-                if(val.data == 1){
-                    me.$Message.success('新增成功');
+                if (val.data == 1) {
+                    me.$Message.success('新增项目案例成功');
                     me.backTo();
-                }else {
-                    me.$Message.error('新增失败');
+                } else {
+                    me.$Message.error('新增项目案例失败');
                 }
             },
             "caseUpdateData": function (val) {
                 let me = this;
-                if(val.data == 1){
-                    me.$Message.success('更新成功');
+                if (val.data == 1) {
+                    me.$Message.success('更新项目案例成功');
                     me.backTo();
-                }else {
-                    me.$Message.error('更新失败');
+                } else {
+                    me.$Message.error('更新项目案例失败');
                 }
             },
         },
@@ -376,6 +375,25 @@
                         this.$Message.error('请填写完整信息!');
                     }
                 })
+            },
+            formatDate(date, fmt) {
+                if (/(y+)/.test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+                }
+                let o = {
+                    'M+': date.getMonth() + 1,
+                    'd+': date.getDate(),
+                    'h+': date.getHours(),
+                    'm+': date.getMinutes(),
+                    's+': date.getSeconds()
+                };
+                for (let k in o) {
+                    if (new RegExp(`(${k})`).test(fmt)) {
+                        let str = o[k] + '';
+                        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : ('00' + str).substr(str.length));
+                    }
+                }
+                return fmt;
             },
             backTo() {
                 let me = this;

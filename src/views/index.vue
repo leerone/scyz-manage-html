@@ -21,6 +21,11 @@
                         <Icon type="ios-navigate"></Icon>
                         <span>文档中心</span>
                     </MenuItem>
+
+                    <MenuItem name="abs" v-show="hasAuth">
+                        <Icon type="ios-navigate"></Icon>
+                        <span>关于我们</span>
+                    </MenuItem>
                 </Menu>
             </Sider>
             <Layout>
@@ -45,12 +50,14 @@
     import cases from "./home/case/case.vue";
     import file from "./home/file/file.vue";
     import hrs from "./home/hrs/hrs.vue";
+    import abs from "./home/aboutus/abs.vue";
     import { mapGetters } from 'vuex';
 
     export default {
 
         computed: mapGetters({
             testData: 'testData',
+            curUserData: 'curUserData'
         }),
 
         components: {
@@ -58,6 +65,7 @@
             'cases': cases,
             'file': file,
             'hrs': hrs,
+            'abs': abs
         },
 
         data () {
@@ -66,15 +74,26 @@
                 time:'',
                 date:'',
                 isCollapsed: false,
-                username: ''
+                username: '',
+                userId: '',
+                hasAuth: false //是否具有该资源的使用权限
             }
         },
-        mounted(){
+        mounted() {
+            let me = this;
+            me.$store.dispatch('getCurUser', {reqData: {
+                userId: me.userId
+            }});
         },
         watch:{
-            "testData":function (val) {
+            "testData": function(val) {
                 alert(val);
                 console.info(val);
+            },
+            "curUserData": function(val) {
+                if (val.data.role == 'super') {
+                    this.hasAuth = true;
+                }
             }
         },
         methods: {
@@ -92,6 +111,9 @@
                     break;
                     case 'hrs':
                         me.nowComp = 'hrs'
+                    break;
+                    case 'abs':
+                        me.nowComp = 'abs'
                     break;
                     default:
                         break;
@@ -116,6 +138,7 @@
         created() {
             let me = this;
             me.username = localStorage.getItem('username');
+            me.userId = localStorage.getItem('userId');
             if(!me.username){
                 me.$router.push({
                     path: '/'

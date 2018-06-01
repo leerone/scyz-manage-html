@@ -282,10 +282,10 @@
             "caseAddData": function (val) {
                 let me = this;
                 if(val.data == 1){
-                    me.$Message.success('新增成功');
+                    me.$Message.success('新增项目案例成功');
                     me.backTo();
                 }else {
-                    me.$Message.error('新增失败');
+                    me.$Message.error('新增项目案例失败');
                 }
             }
         },

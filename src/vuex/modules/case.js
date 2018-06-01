@@ -1,6 +1,4 @@
-/**
- * Created by tangyue on 2017-10-23.
- */
+
 import axios from 'axios'
 import * as CommonConst from '../CommonConst'
 import Qs from 'qs'
