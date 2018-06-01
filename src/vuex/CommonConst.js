@@ -1,8 +1,8 @@
 /*********************************************************************
  *********************************************************************/
 
-//export const URL = "http://47.106.177.128:16666";
-export const URL = "http://localhost:16666";
+export const URL = "http://47.106.177.128:16666";
+//export const URL = "http://localhost:16666";
 
 export const TEST_DATA = "TEST_DATA";
 
